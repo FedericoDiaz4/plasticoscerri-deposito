@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5ECCF8A2-FAD1-4361-9CB8-8C531949BA2C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PlasticosCerriDeposito</RootNamespace>
+    <AssemblyName>PlasticosCerriDeposito</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MySql.Data, Version=8.0.32.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.EntityFramework">
+      <HintPath>..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArticulosCarga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArticulosCarga.Designer.cs">
+      <DependentUpon>ArticulosCarga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ArticulosList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArticulosList.Designer.cs">
+      <DependentUpon>ArticulosList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\DatosAjusteStock.cs" />
+    <Compile Include="Clases\DetalleAjusteStock.cs" />
+    <Compile Include="Comprobantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprobantes.Designer.cs">
+      <DependentUpon>Comprobantes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DepositosCarga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DepositosCarga.Designer.cs">
+      <DependentUpon>DepositosCarga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DepositosList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DepositosList.Designer.cs">
+      <DependentUpon>DepositosList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IngresoStockCarga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IngresoStockCarga.Designer.cs">
+      <DependentUpon>IngresoStockCarga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IngresoStockList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IngresoStockList.Designer.cs">
+      <DependentUpon>IngresoStockList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\articulos.cs">
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\depositos.cs">
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ingresostock.cs">
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ingresostockd.cs">
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlasticosDBContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlasticosDBContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlasticosDBContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlasticosDBContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlasticosDBContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\posiciones.cs">
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stock.cs">
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tipoproductos.cs">
+      <DependentUpon>PlasticosDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo.cs" />
+    <Compile Include="PosicionesCarga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PosicionesCarga.designer.cs">
+      <DependentUpon>PosicionesCarga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PosicionesList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PosicionesList.designer.cs">
+      <DependentUpon>PosicionesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="ZMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZMain.Designer.cs">
+      <DependentUpon>ZMain.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ArticulosCarga.resx">
+      <DependentUpon>ArticulosCarga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArticulosList.resx">
+      <DependentUpon>ArticulosList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprobantes.resx">
+      <DependentUpon>Comprobantes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DepositosCarga.resx">
+      <DependentUpon>DepositosCarga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DepositosList.resx">
+      <DependentUpon>DepositosList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IngresoStockCarga.resx">
+      <DependentUpon>IngresoStockCarga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IngresoStockList.resx">
+      <DependentUpon>IngresoStockList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PosicionesCarga.resx">
+      <DependentUpon>PosicionesCarga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PosicionesList.resx">
+      <DependentUpon>PosicionesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Reportes\IngresoStock.rdlc" />
+    <EmbeddedResource Include="ZMain.resx">
+      <DependentUpon>ZMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="Models\PlasticosDBContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PlasticosDBContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\PlasticosDBContext.edmx.diagram">
+      <DependentUpon>PlasticosDBContext.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\PlasticosCerriDeposito.Clases.DatosAjusteStock.datasource" />
+    <None Include="Properties\DataSources\PlasticosCerriDeposito.Clases.DetalleAjusteStock.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\PlasticosDBContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlasticosDBContext.edmx</DependentUpon>
+      <LastGenOutput>PlasticosDBContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PlasticosDBContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlasticosDBContext.edmx</DependentUpon>
+      <LastGenOutput>PlasticosDBContext.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\del_16.ico" />
+    <None Include="Resources\edit_16.ico" />
+    <None Include="Resources\add_16.ico" />
+    <None Include="Resources\exp_16.ico" />
+    <None Include="Resources\play_16.ico" />
+    <None Include="Resources\srch_16.ico" />
+    <None Include="Resources\impt_16.ico" />
+    <None Include="Resources\print_16.ico" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
