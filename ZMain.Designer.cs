@@ -69,21 +69,21 @@ namespace PlasticosCerriDeposito
             // aRTICULOSToolStripMenuItem
             // 
             this.aRTICULOSToolStripMenuItem.Name = "aRTICULOSToolStripMenuItem";
-            this.aRTICULOSToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.aRTICULOSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aRTICULOSToolStripMenuItem.Text = "&ARTICULOS";
             this.aRTICULOSToolStripMenuItem.Click += new System.EventHandler(this.ARTICULOSToolStripMenuItem_Click);
             // 
             // dEPOSITOSToolStripMenuItem
             // 
             this.dEPOSITOSToolStripMenuItem.Name = "dEPOSITOSToolStripMenuItem";
-            this.dEPOSITOSToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.dEPOSITOSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dEPOSITOSToolStripMenuItem.Text = "&DEPOSITOS";
             this.dEPOSITOSToolStripMenuItem.Click += new System.EventHandler(this.DEPOSITOSToolStripMenuItem_Click);
             // 
             // pOSICIONESToolStripMenuItem
             // 
             this.pOSICIONESToolStripMenuItem.Name = "pOSICIONESToolStripMenuItem";
-            this.pOSICIONESToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.pOSICIONESToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pOSICIONESToolStripMenuItem.Text = "&POSICIONES";
             this.pOSICIONESToolStripMenuItem.Click += new System.EventHandler(this.POSICIONESToolStripMenuItem_Click);
             // 
@@ -109,6 +109,7 @@ namespace PlasticosCerriDeposito
             this.sALIDASTOCKToolStripMenuItem.Name = "sALIDASTOCKToolStripMenuItem";
             this.sALIDASTOCKToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.sALIDASTOCKToolStripMenuItem.Text = "&SALIDA STOCK";
+            this.sALIDASTOCKToolStripMenuItem.Click += new System.EventHandler(this.sALIDASTOCKToolStripMenuItem_Click);
             // 
             // mOVENTREDEPOSITOSToolStripMenuItem
             // 

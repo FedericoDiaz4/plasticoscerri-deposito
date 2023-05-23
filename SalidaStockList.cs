@@ -6,10 +6,10 @@ using PlasticosCerriDeposito.Models;
 
 namespace PlasticosCerriDeposito
 {
-    public partial class IngresoStockList : Form
+    public partial class SalidaStockList : Form
     {
-        private IngresoStockCarga IngresoStockCarga;
-        public IngresoStockList()
+        private SalidaStockCarga SalidaStockCarga;
+        public SalidaStockList()
         {
             InitializeComponent();
             if (DateTime.Today.Month == 1)
@@ -53,7 +53,7 @@ namespace PlasticosCerriDeposito
                     {
                         numero = int.Parse(TxtNumero.Text);
                     }
-                    Flex.DataSource = (from v in db.ingresostock
+                    Flex.DataSource = (from v in db.salidastock
                                        join d in db.depositos on v.iddeposito equals d.id
                                        where (v.fecha >= DtpDesde.Value && v.fecha <= DtpHasta.Value) &&
                                               (v.numero == numero || numero == 0)
@@ -89,12 +89,12 @@ namespace PlasticosCerriDeposito
         {
             Hide();
 
-            IngresoStockCarga.Id = 0;
-            IngresoStockCarga.Nuevo = true;
+            SalidaStockCarga.Id = 0;
+            SalidaStockCarga.Nuevo = true;
 
             CreoObjetoCarga();
-            IngresoStockCarga.ShowDialog();
-            IngresoStockCarga.Dispose();
+            SalidaStockCarga.ShowDialog();
+            SalidaStockCarga.Dispose();
 
             Cargar();
             Show();
@@ -102,8 +102,8 @@ namespace PlasticosCerriDeposito
 
         private void CreoObjetoCarga()
         {
-            IngresoStockCarga ingresoStockCarga = new IngresoStockCarga();
-            IngresoStockCarga = ingresoStockCarga;
+            SalidaStockCarga salidaStockCarga = new SalidaStockCarga();
+            SalidaStockCarga = salidaStockCarga;
         }
 
         private void CmdModificar_Click(object sender, EventArgs e)
@@ -114,20 +114,20 @@ namespace PlasticosCerriDeposito
             }
 
             Hide();
-            IngresoStockCarga.Nuevo = false;
-            IngresoStockCarga.Id = int.Parse(Flex.CurrentRow.Cells[0].Value.ToString());
+            SalidaStockCarga.Nuevo = false;
+            SalidaStockCarga.Id = int.Parse(Flex.CurrentRow.Cells[0].Value.ToString());
             PlasticosDBContext db = new PlasticosDBContext();
             try
             {
                 int IdVenta = int.Parse(Flex.CurrentRow.Cells[0].Value.ToString());
-                var Venta = db.ingresostock.FirstOrDefault(v => v.id == IdVenta);
+                var Venta = db.salidastock.FirstOrDefault(v => v.id == IdVenta);
                 CreoObjetoCarga();
-                IngresoStockCarga.DtpFecha.Value = Venta.fecha;
-                IngresoStockCarga.TxtNumComprobante.Text = Venta.numero.ToString("D8");
-                IngresoStockCarga.IdDeposito = Venta.iddeposito;
-                IngresoStockCarga.Modificando = true;
-                IngresoStockCarga.ShowDialog();
-                IngresoStockCarga.Dispose();
+                SalidaStockCarga.DtpFecha.Value = Venta.fecha;
+                SalidaStockCarga.TxtNumComprobante.Text = Venta.numero.ToString("D8");
+                SalidaStockCarga.IdDeposito = Venta.iddeposito;
+                SalidaStockCarga.Modificando = true;
+                SalidaStockCarga.ShowDialog();
+                SalidaStockCarga.Dispose();
 
                 Cargar();
                 Show();

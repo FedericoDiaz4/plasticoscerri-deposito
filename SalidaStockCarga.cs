@@ -9,7 +9,7 @@ using PlasticosCerriDeposito.Models;
 
 namespace PlasticosCerriDeposito
 {
-    public partial class IngresoStockCarga : Form
+    public partial class SalidaStockCarga : Form
     {
         private static int id;
         private static bool nuevo;
@@ -21,14 +21,14 @@ namespace PlasticosCerriDeposito
         public static bool Modificando { get => modificando; set => modificando = value; }
         public static int IdDeposito { get => idDeposito; set => idDeposito = value; }
 
-        public IngresoStockCarga()
+        public SalidaStockCarga()
         {
             InitializeComponent();
             DtpFecha.Value = DateTime.Now;
             CargarCombos();
         }
 
-        private void IngresoStockCarga_Load(object sender, EventArgs e)
+        private void SalidaStockCarga_Load(object sender, EventArgs e)
         {
             if (nuevo)
             {
@@ -56,9 +56,9 @@ namespace PlasticosCerriDeposito
             try
             {
                 int numero = 0;
-                if (db.ingresostock.Any())
+                if (db.salidastock.Any())
                 {
-                    numero = db.ingresostock.OrderByDescending(ins => ins.numero).FirstOrDefault().numero;
+                    numero = db.salidastock.OrderByDescending(ins => ins.numero).FirstOrDefault().numero;
                 }
                 TxtNumComprobante.Text = (numero + 1).ToString().PadLeft(8, char.Parse("0"));
                 TxtNumComprobante.Enabled = false;
@@ -79,7 +79,7 @@ namespace PlasticosCerriDeposito
             PlasticosDBContext db = new PlasticosDBContext();
             try
             {
-                db.ingresostockd.RemoveRange(db.ingresostockd.Where(vd => vd.idingreso == 0));
+                db.salidastockd.RemoveRange(db.salidastockd.Where(vd => vd.idsalida == 0));
                 db.SaveChanges();
             }
             catch (Exception ex)
@@ -176,19 +176,20 @@ namespace PlasticosCerriDeposito
                 int idDeposito = (int)CboDeposito.SelectedValue;
                 int idArticulo = (int)CboArticulo.SelectedValue;
                 List<posiciones> lstPosiciones = db.posiciones.Where(c => c.eliminado == 0 && c.iddeposito == idDeposito).OrderBy(r => r.id).ToList();
+                List<posiciones> posicionesEnUso = new List<posiciones>();
                 foreach (posiciones posiciones in lstPosiciones)
                 {
                     if (db.stock.Where(s=> s.idposicion == posiciones.id && s.idarticulo == idArticulo && s.iddeposito == idDeposito).Any())
                     {
                         if (db.stock.FirstOrDefault(s => s.idposicion == posiciones.id && s.idarticulo == idArticulo && s.iddeposito == idDeposito).cantstock > 0)
                         {
-                            posiciones.nombre += "***";
+                            posicionesEnUso.Add(posiciones);
                         }
                     }
                 }
                 CboPosicion.DisplayMember = "nombre";
                 CboPosicion.ValueMember = "id";
-                CboPosicion.DataSource = lstPosiciones;
+                CboPosicion.DataSource = posicionesEnUso;
             }
             catch (Exception ex)
             {
@@ -223,9 +224,9 @@ namespace PlasticosCerriDeposito
             PlasticosDBContext db = new PlasticosDBContext();
             try
             {
-                Flex.DataSource = (from i in db.ingresostockd
+                Flex.DataSource = (from i in db.salidastockd
                                    join p in db.posiciones on i.idposicion equals p.id
-                                   where i.idingreso == id
+                                   where i.idsalida == id
                                    orderby i.id
                                    select new
                                    {
@@ -293,7 +294,7 @@ namespace PlasticosCerriDeposito
             double cantidadTotalPosicion = ObtengoStockDisponibleEnPosicion((int)CboDeposito.SelectedValue, (int)CboPosicion.SelectedValue);
             if (cantidad > cantidadTotalPosicion)
             {
-                MessageBox.Show("Stock a ingresar mayor a disponibilidad de posicion.");
+                MessageBox.Show("Stock a retirar mayor a disponibilidad de posicion.");
                 return;
             }
 
@@ -302,16 +303,16 @@ namespace PlasticosCerriDeposito
             {
                 int idArt = (int)CboArticulo.SelectedValue;
                 int idPosicion = (int)CboPosicion.SelectedValue;
-                var detalle = new ingresostockd
+                var detalle = new salidastockd
                 {
-                    idingreso = id,
+                    idsalida = id,
                     idart = idArt,
                     codart = TxtCodArt.Text,
                     art = CboArticulo.Text,
                     cantidad = int.Parse(TxtCantidad.Text),
                     idposicion = idPosicion
                 };
-                context.ingresostockd.Add(detalle);
+                context.salidastockd.Add(detalle);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -336,27 +337,15 @@ namespace PlasticosCerriDeposito
 
         private double ObtengoStockDisponibleEnPosicion(int idDeposito, int idPosicion)
         {
-            double stockDisponibleEnPosicion = 0;
+            double stockActual = 0;
             PlasticosDBContext db = new PlasticosDBContext();
             try
             {
-                double capacidadPosicion = db.posiciones.FirstOrDefault(p => p.id == idPosicion).capacidad;
-                if (Flex.RowCount != 0)
-                {
-                    List<ingresostockd> lstStocksd = db.ingresostockd.Where(isd => isd.idingreso == 0 && isd.idposicion == idPosicion).ToList();
-                    foreach (ingresostockd stockd in lstStocksd)
-                    {
-                        capacidadPosicion -= stockd.cantidad;
-                    }
-                }
                 if (db.stock.Where(s=>s.iddeposito == idDeposito && s.idposicion == idPosicion).Any())
                 {
-                    double stockActual = db.stock.FirstOrDefault(s => s.iddeposito == idDeposito && s.idposicion == idPosicion).cantstock;
-                    stockDisponibleEnPosicion = capacidadPosicion - stockActual;
-                } else
-                {
-                    stockDisponibleEnPosicion = capacidadPosicion;
+                    stockActual = db.stock.FirstOrDefault(s => s.iddeposito == idDeposito && s.idposicion == idPosicion).cantstock;
                 }
+
             }
             catch (Exception ex)
             {
@@ -367,7 +356,7 @@ namespace PlasticosCerriDeposito
             {
                 db.Dispose();
             }
-            return stockDisponibleEnPosicion;
+            return stockActual;
         }
 
         private void CmdSalir_Click(object sender, EventArgs e)
@@ -404,7 +393,7 @@ namespace PlasticosCerriDeposito
             int idDeposito = (int)CboDeposito.SelectedValue;
             try
             {
-                var ingresoStock = new ingresostock
+                var salidaStock = new salidastock
                 {
                     fecha = DtpFecha.Value,
                     numero = int.Parse(TxtNumComprobante.Text),
@@ -414,11 +403,11 @@ namespace PlasticosCerriDeposito
                 PlasticosDBContext db = new PlasticosDBContext();
                 if (nuevo)
                 {
-                    db.ingresostock.Add(ingresoStock);
+                    db.salidastock.Add(salidaStock);
                 }
 
                 db.SaveChanges();
-                id = ingresoStock.id;
+                id = salidaStock.id;
                 db.Dispose();
                 nuevo = false;
             }
@@ -431,10 +420,10 @@ namespace PlasticosCerriDeposito
             try
             {
                 PlasticosDBContext db = new PlasticosDBContext();
-                var IngresoStockd = db.ingresostockd.Where(vd => vd.idingreso == 0);
-                foreach (ingresostockd ingd in IngresoStockd)
+                List<salidastockd> salidaStockD = db.salidastockd.Where(vd => vd.idsalida == 0).ToList();
+                foreach (salidastockd sald in salidaStockD)
                 {
-                    ingd.idingreso = id;
+                    sald.idsalida = id;
                 }
                 db.SaveChanges();
                 db.Dispose();
@@ -454,12 +443,12 @@ namespace PlasticosCerriDeposito
             try
             {
                 PlasticosDBContext db = new PlasticosDBContext();
-                List<ingresostockd> listaArts = db.ingresostockd.Where(vd => vd.idingreso == idIngreso).ToList();
+                List<salidastockd> listaArts = db.salidastockd.Where(vd => vd.idsalida == idIngreso).ToList();
                 
                 int idDeposito = (int)CboDeposito.SelectedValue;
-                foreach (ingresostockd art in listaArts)
+                foreach (salidastockd art in listaArts)
                 {
-                    Modulo.ModificoItemStock(art.idart, int.Parse(art.cantidad.ToString()), "+", art.idposicion, idDeposito);
+                    Modulo.ModificoItemStock(art.idart, int.Parse(art.cantidad.ToString()), "-", art.idposicion, idDeposito);
                 }
                 db.Dispose();
             }
@@ -520,6 +509,7 @@ namespace PlasticosCerriDeposito
             {
                 CargarComboPosiciones();
             }
+            CboPosicion.SelectedIndex = -1;
         }
 
         private void CboPosiciones_SelectedIndexChanged(object sender, EventArgs e)
@@ -531,10 +521,19 @@ namespace PlasticosCerriDeposito
                 {
                     int idDeposito = (int)CboDeposito.SelectedValue;
                     int idPosicion = (int)CboPosicion.SelectedValue;
+                    int idArt = (int)CboArticulo.SelectedValue;
                     int stockActual = 0;
                     if(db.stock.Where(s => s.iddeposito == idDeposito && s.idposicion == idPosicion).Any())
                     {
                         stockActual = db.stock.FirstOrDefault(s => s.iddeposito == idDeposito && s.idposicion == idPosicion).cantstock;
+                    }
+                    if(db.salidastockd.Where(s=>s.idsalida == 0 && s.idposicion == idPosicion && s.idart == idArt).Any())
+                    {
+                        List<salidastockd> stockEnUso = db.salidastockd.Where(s => s.idsalida == 0 && s.idposicion == idPosicion && s.idart == idArt).ToList();
+                        foreach (salidastockd st in stockEnUso)
+                        {
+                            stockActual -= st.cantidad;
+                        }
                     }
                     double capacidadTotal = db.posiciones.FirstOrDefault(p => p.id == idPosicion).capacidad;
                     double capacidadDisponible = ObtengoStockDisponibleEnPosicion(idDeposito, idPosicion);
@@ -577,7 +576,7 @@ namespace PlasticosCerriDeposito
             PlasticosDBContext db = new PlasticosDBContext();
             try
             {
-                db.ingresostockd.Remove(db.ingresostockd.Find(idMovD));
+                db.salidastockd.Remove(db.salidastockd.Find(idMovD));
                 db.SaveChanges();
                 Vaciar();
             }
@@ -618,7 +617,7 @@ namespace PlasticosCerriDeposito
             Comprobantes formComprobantes = new Comprobantes();
 
             PlasticosDBContext db = new PlasticosDBContext();
-            ingresostock ingresoStock = db.ingresostock.FirstOrDefault(a => a.id == id);
+            salidastock salidaStock = db.salidastock.FirstOrDefault(a => a.id == id);
 
             formComprobantes.reportViewer1.LocalReport.ReportEmbeddedResource = "PlasticosCerriDeposito.Reportes.IngresoStock.rdlc";
             formComprobantes.reportViewer1.LocalReport.DataSources.Clear();
@@ -630,20 +629,20 @@ namespace PlasticosCerriDeposito
                                 </DeviceInfo>";
 
             //var ruta = @"\\YORLIS-PC\MovStock\0001-" + ingresoStock.numero.ToString("D8") + "-" + ingresoStock.fecha.ToString("dd.MM.yyyy") + ".pdf";
-            string ruta = @"C:\sistema\0001-" + ingresoStock.numero.ToString("D8") + "-" + ingresoStock.fecha.ToString("dd.MM.yyyy") + ".pdf";
+            string ruta = @"C:\sistema\0001-" + salidaStock.numero.ToString("D8") + "-" + salidaStock.fecha.ToString("dd.MM.yyyy") + ".pdf";
             db.Dispose();
             byte[] bytes = formComprobantes.reportViewer1.LocalReport.Render("PDF", deviceInfo);
             Modulo.CreoPDF(ruta, bytes, true);
         }
 
-        private static List<DetalleAjusteStock> GeneroListaDetalle(int idIngreso)
+        private static List<DetalleAjusteStock> GeneroListaDetalle(int idSalida)
         {
             List<DetalleAjusteStock> listaDetalle = new List<DetalleAjusteStock>();
             PlasticosDBContext db = new PlasticosDBContext();
             try
             {
-                var detalle = db.ingresostockd.Where(ms => ms.idingreso == idIngreso);
-                foreach (ingresostockd ms in detalle)
+                var detalle = db.salidastockd.Where(ms => ms.idsalida == idSalida);
+                foreach (salidastockd ms in detalle)
                 {
                     PlasticosDBContext db1 = new PlasticosDBContext();
                     string codigo = db1.articulos.FirstOrDefault(a => a.id == ms.idart).codigo;
@@ -667,16 +666,16 @@ namespace PlasticosCerriDeposito
             }
         }
 
-        private static List<DatosAjusteStock> GeneroListaDatos(int idIngreso)
+        private static List<DatosAjusteStock> GeneroListaDatos(int idSalida)
         {
             PlasticosDBContext db = new PlasticosDBContext();
-            ingresostock ingreso = db.ingresostock.FirstOrDefault(v => v.id == idIngreso);
-            string deposito = db.depositos.FirstOrDefault(d => d.id == ingreso.iddeposito).codigo + " - " + db.depositos.FirstOrDefault(d => d.id == ingreso.iddeposito).nombre;
+            salidastock salida = db.salidastock.FirstOrDefault(v => v.id == idSalida);
+            string deposito = db.depositos.FirstOrDefault(d => d.id == salida.iddeposito).codigo + " - " + db.depositos.FirstOrDefault(d => d.id == salida.iddeposito).nombre;
             DatosAjusteStock datos = new DatosAjusteStock
             {
-                TipoAjuste = "Alta de Stock",
-                NumeroAjuste = "N° 0001" + "-" + ingreso.numero.ToString("D8"),
-                FechaAjuste = "Fecha: " + ingreso.fecha.Day.ToString("D2") + "/" + ingreso.fecha.Month.ToString("D2") + "/" + ingreso.fecha.Year.ToString("D4"),
+                TipoAjuste = "Baja de Stock",
+                NumeroAjuste = "N° 0001" + "-" + salida.numero.ToString("D8"),
+                FechaAjuste = "Fecha: " + salida.fecha.Day.ToString("D2") + "/" + salida.fecha.Month.ToString("D2") + "/" + salida.fecha.Year.ToString("D4"),
                 Deposito = deposito
             };
             List<DatosAjusteStock> datosFacturas = new List<DatosAjusteStock>

@@ -32,5 +32,7 @@ namespace PlasticosCerriDeposito.Models
         public virtual DbSet<posiciones> posiciones { get; set; }
         public virtual DbSet<ingresostock> ingresostock { get; set; }
         public virtual DbSet<ingresostockd> ingresostockd { get; set; }
+        public virtual DbSet<salidastock> salidastock { get; set; }
+        public virtual DbSet<salidastockd> salidastockd { get; set; }
     }
 }

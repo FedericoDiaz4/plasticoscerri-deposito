@@ -59,6 +59,28 @@
           <Property Name="capacidad" Type="double" Nullable="false" />
           <Property Name="eliminado" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="salidastock">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="iddeposito" Type="int" Nullable="false" />
+          <Property Name="eliminado" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salidastockd">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idsalida" Type="int" Nullable="false" />
+          <Property Name="idart" Type="int" Nullable="false" />
+          <Property Name="codart" Type="tinytext" Nullable="false" />
+          <Property Name="art" Type="text" Nullable="false" />
+          <Property Name="idposicion" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="stock">
           <Key>
             <PropertyRef Name="id" />
@@ -85,6 +107,8 @@
           <EntitySet Name="ingresostock" EntityType="Self.ingresostock" Schema="plasticoscerrideposito" store:Type="Tables" />
           <EntitySet Name="ingresostockd" EntityType="Self.ingresostockd" Schema="plasticoscerrideposito" store:Type="Tables" />
           <EntitySet Name="posiciones" EntityType="Self.posiciones" Schema="plasticoscerrideposito" store:Type="Tables" />
+          <EntitySet Name="salidastock" EntityType="Self.salidastock" Schema="plasticoscerrideposito" store:Type="Tables" />
+          <EntitySet Name="salidastockd" EntityType="Self.salidastockd" Schema="plasticoscerrideposito" store:Type="Tables" />
           <EntitySet Name="stock" EntityType="Self.stock" Schema="plasticoscerrideposito" store:Type="Tables" />
           <EntitySet Name="tipoproductos" EntityType="Self.tipoproductos" Schema="plasticoscerrideposito" store:Type="Tables" />
         </EntityContainer>
@@ -121,6 +145,8 @@
           <EntitySet Name="posiciones" EntityType="plasticoscerridepositoModel.posiciones" />
           <EntitySet Name="ingresostock" EntityType="plasticoscerridepositoModel.ingresostock" />
           <EntitySet Name="ingresostockd" EntityType="plasticoscerridepositoModel.ingresostockd" />
+          <EntitySet Name="salidastock" EntityType="plasticoscerridepositoModel.salidastock" />
+          <EntitySet Name="salidastockd" EntityType="plasticoscerridepositoModel.salidastockd" />
         </EntityContainer>
         <EntityType Name="depositos">
           <Key>
@@ -169,6 +195,28 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idingreso" Type="Int32" Nullable="false" />
+          <Property Name="idart" Type="Int32" Nullable="false" />
+          <Property Name="codart" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="art" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="idposicion" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salidastock">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="iddeposito" Type="Int32" Nullable="false" />
+          <Property Name="eliminado" Type="SByte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salidastockd">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idsalida" Type="Int32" Nullable="false" />
           <Property Name="idart" Type="Int32" Nullable="false" />
           <Property Name="codart" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="art" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -258,6 +306,30 @@
                 <ScalarProperty Name="codart" ColumnName="codart" />
                 <ScalarProperty Name="idart" ColumnName="idart" />
                 <ScalarProperty Name="idingreso" ColumnName="idingreso" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salidastock">
+            <EntityTypeMapping TypeName="plasticoscerridepositoModel.salidastock">
+              <MappingFragment StoreEntitySet="salidastock">
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="iddeposito" ColumnName="iddeposito" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salidastockd">
+            <EntityTypeMapping TypeName="plasticoscerridepositoModel.salidastockd">
+              <MappingFragment StoreEntitySet="salidastockd">
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idposicion" ColumnName="idposicion" />
+                <ScalarProperty Name="art" ColumnName="art" />
+                <ScalarProperty Name="codart" ColumnName="codart" />
+                <ScalarProperty Name="idart" ColumnName="idart" />
+                <ScalarProperty Name="idsalida" ColumnName="idsalida" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

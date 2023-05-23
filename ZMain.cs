@@ -9,6 +9,7 @@ namespace PlasticosCerriDeposito
         private DepositosList DepositosList;
         private PosicionesList PosicionesList;
         private IngresoStockList IngresoStockList;
+        private SalidaStockList SalidaStockList;
         public ZMain()
         {
             InitializeComponent();
@@ -105,6 +106,28 @@ namespace PlasticosCerriDeposito
         private void CerrarIngresoStockList(object sender, FormClosedEventArgs e)
         {
             IngresoStockList = null;
+        }
+
+        private void sALIDASTOCKToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SalidaStockList == null)
+            {
+                SalidaStockList salidaStockList = new SalidaStockList();
+                SalidaStockList = salidaStockList;
+                SalidaStockList.MdiParent = this;
+                SalidaStockList.FormClosed += new FormClosedEventHandler(CerrarSalidaStockList);
+                SalidaStockList.Show();
+            }
+            else
+            {
+                SalidaStockList.Show();
+                SalidaStockList.BringToFront();
+            }
+        }
+
+        private void CerrarSalidaStockList(object sender, FormClosedEventArgs e)
+        {
+            SalidaStockList = null;
         }
     }
 }

@@ -8,6 +8,8 @@ namespace PlasticosCerriDeposito.Clases
         public string NumeroAjuste { get; set; }
         public string FechaAjuste { get; set; }
 
+        public string Deposito { get; set; }
+
         public List<DatosAjusteStock> Detail = new List<DatosAjusteStock>();
     }
 }
